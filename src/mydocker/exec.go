@@ -1,14 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"strings"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/xianlubird/mydocker/container"
-	"io/ioutil"
-	"encoding/json"
-	"strings"
-	"os/exec"
-	"os"
 	_ "github.com/xianlubird/mydocker/nsenter"
 )
 
@@ -62,7 +63,7 @@ func getEnvsByPid(pid string) []string {
 		log.Errorf("Read file %s error %v", path, err)
 		return nil
 	}
-	//env split by \u0000
+	//env split by \u0000(unicode中的空格)
 	envs := strings.Split(string(contentBytes), "\u0000")
 	return envs
 }

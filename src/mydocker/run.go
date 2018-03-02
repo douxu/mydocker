@@ -3,16 +3,17 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
-	"github.com/xianlubird/mydocker/cgroups"
-	"github.com/xianlubird/mydocker/cgroups/subsystems"
-	"github.com/xianlubird/mydocker/container"
-	"github.com/xianlubird/mydocker/network"
 	"math/rand"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	log "github.com/Sirupsen/logrus"
+	"github.com/xianlubird/mydocker/cgroups"
+	"github.com/xianlubird/mydocker/cgroups/subsystems"
+	"github.com/xianlubird/mydocker/container"
+	"github.com/xianlubird/mydocker/network"
 )
 
 func Run(tty bool, comArray []string, res *subsystems.ResourceConfig, containerName, volume, imageName string,
@@ -42,7 +43,9 @@ func Run(tty bool, comArray []string, res *subsystems.ResourceConfig, containerN
 	// use containerID as cgroup name
 	cgroupManager := cgroups.NewCgroupManager(containerID)
 	defer cgroupManager.Destroy()
+	// set a container resource limit
 	cgroupManager.Set(res)
+	// add process pid to this cgroup
 	cgroupManager.Apply(parent.Process.Pid)
 
 	if nw != "" {
