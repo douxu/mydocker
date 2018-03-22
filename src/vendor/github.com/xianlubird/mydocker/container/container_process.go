@@ -2,10 +2,11 @@ package container
 
 import (
 	"fmt"
-	log "github.com/Sirupsen/logrus"
 	"os"
 	"os/exec"
 	"syscall"
+
+	log "github.com/Sirupsen/logrus"
 )
 
 var (
@@ -15,19 +16,20 @@ var (
 	DefaultInfoLocation string = "/var/run/mydocker/%s/"
 	ConfigName          string = "config.json"
 	ContainerLogFile    string = "container.log"
-	RootUrl				string = "/root"
-	MntUrl				string = "/root/mnt/%s"
-	WriteLayerUrl 		string = "/root/writeLayer/%s"
+	RootUrl             string = "/root"
+	MntUrl              string = "/root/mnt/%s"
+	WriteLayerUrl       string = "/root/writeLayer/%s"
 )
 
 type ContainerInfo struct {
-	Pid         string `json:"pid"`        //容器的init进程在宿主机上的 PID
-	Id          string `json:"id"`         //容器Id
-	Name        string `json:"name"`       //容器名
-	Command     string `json:"command"`    //容器内init运行命令
-	CreatedTime string `json:"createTime"` //创建时间
-	Status      string `json:"status"`     //容器的状态
-	Volume      string `json:"volume"`     //容器的数据卷
+	Pid         string   `json:"pid"`         //容器的init进程在宿主机上的 PID
+	Id          string   `json:"id"`          //容器Id
+	Name        string   `json:"name"`        //容器名
+	Command     string   `json:"command"`     //容器内init运行命令
+	ImageName   string   `json:"imageName"`   //容器使用的镜像名
+	CreatedTime string   `json:"createTime"`  //创建时间
+	Status      string   `json:"status"`      //容器的状态
+	Volume      string   `json:"volume"`      //容器的数据卷
 	PortMapping []string `json:"portmapping"` //端口映射
 }
 
